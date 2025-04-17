@@ -1,0 +1,9 @@
+requests
+selenium
+beautifulsoup4
+sentence_transformers
+numpy<2.0
+faiss-cpu
+google-generativeai
+python-dotenv
+streamlit
