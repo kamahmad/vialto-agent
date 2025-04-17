@@ -82,5 +82,32 @@ def generate_prompt(query):
     
     return system_prompt
 
+def chatbot(query):
+    """ Main function to interact with the chatbot. """
+    
+    prompt = generate_prompt(query)
+    
+    # Configure the Gemini API
+    gemini_key = os.getenv("GEMINI_API_KEY")
+    genai.configure(api_key=gemini_key)
+    model = genai.GenerativeModel('gemini-2.0-flash-exp')
+
+    # Generate content using the Gemini model
+    try:
+        response = model.generate_content(prompt)
+        return response.text.strip()
+    except Exception as e:
+        return f"An error occurred while generating the response: {e}"
+
+st.title("Vialto Chatbot")
+
+user_query = st.text_input("Ask me a question about tax, global mobility, or immigration:")
+
+if user_query:
+    response = chatbot(user_query)
+    st.write("Chatbot:", response)
+    st.write("If you have any further questions, feel free to ask!")
+
+
 if __name__ == "__main__":
     pass
